@@ -1,0 +1,7 @@
+{
+  "name": "FrontEnd-Proyecto1-Moviles",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
