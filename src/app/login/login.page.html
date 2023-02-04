@@ -8,15 +8,15 @@
 <ion-card-content>
   <ion-item>
     <ion-label position="floating">Usuario</ion-label>
-    <ion-input placeholder="Ingresar nombre de usuario"></ion-input>
+    <ion-input [(ngModel)]="usuario" placeholder="Ingresar nombre de usuario"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label position="floating">Contraseña</ion-label>
-    <ion-input type="password" placeholder="Ingresar contraseña"></ion-input>
+    <ion-input [(ngModel)]="pass" type="password" placeholder="Ingresar contraseña"></ion-input>
   </ion-item>
 
   <ion-grid>
-    <ion-col size="2" offset="4"> <ion-button expand="block" color="success" fill="outline">Ingresar</ion-button></ion-col>
+    <ion-col size="2" offset="4"> <ion-button (click)="login()" expand="block" color="success" fill="outline">Ingresar</ion-button></ion-col>
     
     <ion-col size="2" offset="4"> <ion-button expand="block" color="tertiary" fill="outline" [routerLink]="['/register']">Registrarse</ion-button></ion-col>
   </ion-grid>

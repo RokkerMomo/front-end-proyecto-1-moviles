@@ -1,34 +1,50 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Inbox
+      Mis Notas
     </ion-title>
    
   </ion-toolbar>
 </ion-header>
 
+<ion-fab slot="fixed" vertical="top" horizontal="end">
+  <ion-fab-button>
+    <ion-icon name="caret-down-outline"></ion-icon>
+  </ion-fab-button>
+  <ion-fab-list side="bottom">
+    <ion-fab-button>
+      <ion-icon name="document"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-button>
+      <ion-icon name="folder-open-outline"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-button>
+      <ion-icon name="person-outline"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-button (click)="salir()">
+      <ion-icon name="exit-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab-list>
+</ion-fab>    
 <ion-content>
 
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">
-        Inbox
+        Mis Notas
       </ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <ion-fab slot="fixed" vertical="top" horizontal="end">
-    <ion-fab-button>
-      <ion-icon name="add-circle-outline"></ion-icon>
-    </ion-fab-button>
-    <ion-fab-list side="bottom">
-      <ion-fab-button>
-        <ion-icon name="document"></ion-icon>
-      </ion-fab-button>
-    </ion-fab-list>
-  </ion-fab>
+ 
   
   <ion-list>
-    <app-message *ngFor="let message of getMessages()" [message]="message"></app-message>
+    <ion-item button *ngFor="let item of notas[0]" [routerLink]="[item._id]">
+      <ion-label>
+        <h1>{{item.titulo}}</h1>
+        <p>{{item.descripcion}}</p>
+      </ion-label>
+      <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
+</ion-item>
   </ion-list>
 </ion-content>

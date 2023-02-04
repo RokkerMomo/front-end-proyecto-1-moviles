@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RefresherCustomEvent } from '@ionic/angular';
-
-import { DataService, Message } from '../services/data.service';
+import { Router } from "@angular/router";
+import { DataService} from '../services/data.service';
 
 @Component({
   selector: 'app-home',
@@ -9,7 +9,9 @@ import { DataService, Message } from '../services/data.service';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  constructor(private data: DataService) { }
+  constructor(private dataservice:DataService, private router:Router) { }
+
+  notas:any = [];
 
   refresh(ev: any) {
     setTimeout(() => {
@@ -17,8 +19,16 @@ export class HomePage {
     }, 3000);
   }
 
-  getMessages(): Message[] {
-    return this.data.getMessages();
+  ngOnInit() {
+    this.dataservice.getNotes().subscribe((res)=>{
+      this.notas= [...this.notas,res];
+      console.log(res);
+      console.log(this.notas)
+    })
+  }
+
+  salir(){
+    this.router.navigate(['/login']);
   }
 
 }
