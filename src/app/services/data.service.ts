@@ -6,7 +6,8 @@ export interface resultados{
   id:string,
   owner:string,
   titulo:string,
-  descripcion:string
+  descripcion:string,
+  usuario:string
 }
 
 @Injectable({
@@ -21,8 +22,8 @@ export class DataService {
       return this.http.post(`http://localhost:3000/signup`, datos)
     }
 
-    public login(datos:any){
-      return this.http.post(`http://localhost:3000/signin`, datos)
+    public login(datos:any):Observable<resultados>{
+      return this.http.post<resultados>(`http://localhost:3000/signin`, datos)
     }
     
     public crearNota(datos:any){
@@ -33,8 +34,16 @@ export class DataService {
       return this.http.post<resultados>(`http://localhost:3000/showdetails`, datos)
     }
 
-  public getNotes():Observable<resultados>{
-    return this.http.get<resultados>(`http://localhost:3000/shownotes`)
+    public editarcontenido(datos:any):Observable<resultados>{
+      return this.http.post<resultados>(`http://localhost:3000/edit`,datos)
+    }
+
+    public borrarNota(datos:any){
+      return this.http.post(`http://localhost:3000/delete`,datos)
+    }
+
+  public getNotes(datos:any):Observable<resultados>{
+    return this.http.post<resultados>(`http://localhost:3000/shownotes`,datos)
   }
 
   

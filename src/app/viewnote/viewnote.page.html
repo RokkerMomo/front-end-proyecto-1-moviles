@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+      <ion-back-button (click)="Volver()"></ion-back-button>
     </ion-buttons>
     <ion-buttons slot="secondary">
       <ion-button>
@@ -9,22 +9,26 @@
       </ion-button>
     </ion-buttons>
     <ion-buttons slot="primary">
-      <ion-button>
-        <ion-icon slot="icon-only" name="heart-outline"></ion-icon>
+      <ion-button (click)="borrar()">
+        <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>Nota 01 </ion-title>
+    <ion-buttons slot="primary">
+      <ion-button (click)="guardar()">
+        <ion-icon slot="icon-only" name="save-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-item>
+      <ion-input [(ngModel)]="titulo" placeholder="Titulo"></ion-input>
+      <button clear item-right></button>
+     </ion-item>
   </ion-toolbar>
 </ion-header>
 
 
 <ion-content>
-  <ion-title>
-    <h1>{{titulo}}</h1>
-  </ion-title>
   <ion-item>
-    <ion-textarea placeholder="Type something here" [autoGrow]="true"
-      value="{{contenido}}">
+    <ion-textarea [(ngModel)]="contenido" placeholder="Type something here" [autoGrow]="true">
     </ion-textarea>
   </ion-item>
 </ion-content>

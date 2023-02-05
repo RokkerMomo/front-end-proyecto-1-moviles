@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Query } from '@angular/core';
 import { AlertController, LoadingController, NavController } from '@ionic/angular';
 import { DataService } from "src/app/services/data.service";
 import { Router } from "@angular/router";
@@ -42,7 +42,12 @@ export class LoginPage implements OnInit {
     this.Datos.password=this.pass;
     this.dataservice.login(this.Datos).subscribe((res)=>{
       console.log(res);
-      this.router.navigate(['/home']);
+      this.router.navigate(
+    ['/home'],
+    {
+      queryParams: { usuario: res.usuario },
+      queryParamsHandling: 'merge' }
+    );
     },(error)=>{
       this.mensaje=error.error.msg;
       this.error();

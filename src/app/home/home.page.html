@@ -12,7 +12,7 @@
     <ion-icon name="caret-down-outline"></ion-icon>
   </ion-fab-button>
   <ion-fab-list side="bottom">
-    <ion-fab-button>
+    <ion-fab-button (click)="nuevaNota()">
       <ion-icon name="document"></ion-icon>
     </ion-fab-button>
     <ion-fab-button>
@@ -39,10 +39,11 @@
  
   
   <ion-list>
-    <ion-item button *ngFor="let item of notas[0]" [routerLink]="[item._id]">
+    <ion-item button *ngFor="let item of notas[0]" [routerLink]="[item._id]" queryParamsHandling="merge">
       <ion-label>
         <h1>{{item.titulo}}</h1>
         <p>{{item.descripcion}}</p>
+        <p>Creado el : {{item.fecha}}</p>
       </ion-label>
       <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
 </ion-item>
