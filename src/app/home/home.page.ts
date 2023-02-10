@@ -17,13 +17,15 @@ export class HomePage {
   constructor(private dataservice:DataService, private router:Router, private route:ActivatedRoute) { }
 
   notas:any = [];
+  vacio:any = [];
   orderObj:any ={}
-
+cargado:boolean=false;
  owner:any="";
 
  cargar={
   owner:""
  }
+
 
   Dato={
     owner:"",
@@ -32,49 +34,96 @@ export class HomePage {
     fecha:now.toLocaleString()
     }
 
-  refresh(ev: any) {
-    setTimeout(() => {
-      (ev as RefresherCustomEvent).detail.complete();
-    }, 3000);
-  }
 
   ngOnInit() {
     this.owner='';
-    this.cargarnotas();
-  }
-
-  cargarnotas(){
+    this.notas =[];
     this.route.queryParams.subscribe(params => {
-        console.log(params);
-
-        this.owner = params['usuario'];
-      }
-    );
-    this.cargar.owner=this.owner;
-    console.log(this.cargar)
-    this.dataservice.getNotes(this.cargar).subscribe((res)=>{
-      this.notas= [...this.notas,res];
-      console.log(res);
-      console.log(this.notas)
-    })
+      this.owner = params['usuario'];
+    }
+  );
+  this.cargar.owner=this.owner;
+  this.dataservice.getNotes(this.cargar).subscribe((res)=>{
+    this.notas= [...this.notas,res];
+    if ( this.notas[0].length==0) {
+      this.cargado=false;
+    }
+    else{
+      this.cargado=true;
+    }
+    
+  })
   }
+
+  ionViewWillEnter(){
+    this.owner='';
+    this.notas =[];
+    this.route.queryParams.subscribe(params => {
+      this.owner = params['usuario'];
+    }
+  );
+  this.cargar.owner=this.owner;
+  this.dataservice.getNotes(this.cargar).subscribe((res)=>{
+    this.notas= [...this.notas,res];
+    if ( this.notas[0].length==0) {
+      this.cargado=false;
+    }
+    else{
+      this.cargado=true;
+    }
+    
+  })
+
+  }
+
+
 
   salir(){
-    this.router.navigate(['/login']);
+    this.owner='';
+    this.notas =[];
+    this.router.navigate(['/login']).then(() => {
+      window.location.reload();
+    });;
+  }
+
+  perfil(){
+    this.route.queryParams.subscribe(params => {
+      this.owner = params['usuario'];
+    }
+  );
+    this.router.navigate(
+      ['/perfil'],
+      {
+        queryParams: { usuario: this.owner },
+        queryParamsHandling: 'merge' }
+      )
+  }
+
+
+  showcarpets(){
+    this.route.queryParams.subscribe(params => {
+      this.owner = params['usuario'];
+    }
+  );
+    this.router.navigate(
+      ['/carpetas'],
+      {
+        queryParams: { usuario: this.owner },
+        queryParamsHandling: 'merge' }
+      )
   }
 
   nuevaNota(){
     this.route.queryParams.subscribe(params => {
-      console.log(params);
-
       this.owner = params['usuario'];
     }
   );
   this.Dato.owner=this.owner;
-    console.log(this.Dato);
     this.dataservice.crearNota(this.Dato).subscribe((res)=>{
-      console.log(res);
-      window.location.reload();
+      this.router.navigate([`home/${res._id}`],
+      {
+        queryParams: { usuario: this.owner },
+        queryParamsHandling: 'merge' })
     })
   }
 

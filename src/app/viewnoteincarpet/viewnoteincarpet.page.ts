@@ -5,11 +5,11 @@ import { DataService} from '../services/data.service';
 import { AlertController, LoadingController, NavController } from '@ionic/angular';
 
 @Component({
-  selector: 'app-viewnote',
-  templateUrl: './viewnote.page.html',
-  styleUrls: ['./viewnote.page.scss'],
+  selector: 'app-viewnoteincarpet',
+  templateUrl: './viewnoteincarpet.page.html',
+  styleUrls: ['./viewnoteincarpet.page.scss'],
 })
-export class ViewnotePage implements OnInit {
+export class ViewnoteincarpetPage implements OnInit {
 
   constructor(private router:Router, private route:ActivatedRoute, private dataservice:DataService, private alertController: AlertController ) { }
 
@@ -150,7 +150,7 @@ export class ViewnotePage implements OnInit {
     }
   );
     this.router.navigate(
-      ['/home'],
+      ['/vercarpeta'],
       {
         queryParams: { usuario: this.owner },
         queryParamsHandling: 'merge' }

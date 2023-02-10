@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Carpetas</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="agregar()">
+        <ion-icon  slot="icon-only" name="add-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-grid >
+    <ion-row>
+      <ion-col *ngFor="let item of carpetas[0]" size="6" size-md="4" size-lg="2">
+        <ion-item button class="bonito" (click)="mostrar(item.nombre)">
+          <ion-label><ion-icon slot="start" name="folder-outline"></ion-icon> {{item.nombre}}</ion-label>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

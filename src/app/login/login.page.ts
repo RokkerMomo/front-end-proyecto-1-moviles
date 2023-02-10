@@ -37,15 +37,14 @@ export class LoginPage implements OnInit {
   }
 
   login(){
-
     this.Datos.usuario=this.usuario;
     this.Datos.password=this.pass;
     this.dataservice.login(this.Datos).subscribe((res)=>{
-      console.log(res);
+      console.log(res.user._id)
       this.router.navigate(
     ['/home'],
     {
-      queryParams: { usuario: res.usuario },
+      queryParams: { usuario: res.user._id },
       queryParamsHandling: 'merge' }
     );
     },(error)=>{

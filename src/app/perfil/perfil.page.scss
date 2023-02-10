@@ -1,0 +1,42 @@
+
+.carta{
+    position: relative;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    margin: 10 auto;    
+    
+}
+
+.foto{
+    
+    margin: 0 auto;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.titulo{
+    margin: 0 auto;
+    margin-top: 5px;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+}
+
+.griditem{
+    position: relative;
+    margin: 0 auto;
+    margin-top: 5px;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+}
+
+.borrar{
+    position: relative;
+    margin-top: 25px;
+    margin-left: 1rem;
+}

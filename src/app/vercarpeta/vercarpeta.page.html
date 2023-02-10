@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      {{carpeta}}
+    </ion-title>
+   
+  </ion-toolbar>
+</ion-header>
+
+   
+<ion-content>
+
+  
+  <ion-list lines="full" class="color">
+    <div *ngIf="cargado === true; else conditionFalse">
+      <ion-item class="item" button *ngFor="let item of notas[0]" [routerLink]="[item._id]" queryParamsHandling="merge">
+        <ion-label>
+          <h1>{{item.titulo}}</h1>
+          <p>{{item.descripcion}}</p>
+          <p>Creado el : {{item.fecha}}</p>
+        </ion-label>
+        <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
+  </ion-item>
+    </div>
+    <ng-template #conditionFalse >
+      <p class="nada"> No hay nada aqui...</p>
+      <p class="nada">intenta crear una nueva Nota</p>
+    </ng-template>
+  </ion-list>
+  
+</ion-content>

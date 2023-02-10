@@ -6,15 +6,16 @@
   </ion-card-header>
 
 <ion-card-content>
-  <ion-item>
+  <div><ion-item>
     <ion-label position="floating">Usuario</ion-label>
     <ion-input [(ngModel)]="usuario" placeholder="Ingresar nombre de usuario"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label position="floating">Contraseña</ion-label>
-    <ion-input [(ngModel)]="pass" type="password" placeholder="Ingresar contraseña"></ion-input>
+    <ion-input (keyup.enter)="login()" [(ngModel)]="pass" type="password" placeholder="Ingresar contraseña"></ion-input>
   </ion-item>
-
+</div>
+  
   <ion-grid>
     <ion-col size="2" offset="4"> <ion-button (click)="login()" expand="block" color="success" fill="outline">Ingresar</ion-button></ion-col>
     

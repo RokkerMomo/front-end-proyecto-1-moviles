@@ -23,6 +23,22 @@ const routes: Routes = [
     path: 'home/:_id',
     loadChildren: () => import('./viewnote/viewnote.module').then( m => m.ViewnotePageModule)
   },
+  {
+    path: 'perfil',
+    loadChildren: () => import('./perfil/perfil.module').then( m => m.PerfilPageModule)
+  },
+  {
+    path: 'carpetas',
+    loadChildren: () => import('./carpetas/carpetas.module').then( m => m.CarpetasPageModule)
+  },
+  {
+    path: 'vercarpeta',
+    loadChildren: () => import('./vercarpeta/vercarpeta.module').then( m => m.VercarpetaPageModule)
+  },
+  {
+    path: 'vercarpeta/:_id',
+    loadChildren: () => import('./viewnoteincarpet/viewnoteincarpet.module').then( m => m.ViewnoteincarpetPageModule)
+  },
 ];
 
 @NgModule({

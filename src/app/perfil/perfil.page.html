@@ -1,0 +1,61 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="body">
+<ion-card class="carta">
+  <ion-avatar class="foto">
+    <img alt="Avatar" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+  </ion-avatar>
+  <ion-card-header class="titulo">
+    <ion-card-title>{{usuario}}'s Profile</ion-card-title>
+  </ion-card-header>
+
+  <ion-card-content class="griditem">
+    <ion-list>
+      <ion-item-group>
+        <ion-item-divider>
+          <ion-label slot="start">
+            Informacion Personal
+          </ion-label>
+        </ion-item-divider>
+    
+        <ion-item>
+          <ion-label  position="floating">Nombre</ion-label>
+          <ion-input [(ngModel)]="nombre" placeholder="Ingrese Su Nombre"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Apellido</ion-label>
+          <ion-input  [(ngModel)]="apellido" placeholder="Ingrese suio Apellido"></ion-input>
+        </ion-item>
+      </ion-item-group>
+    
+      <ion-item-group>
+        <ion-item-divider>
+          <ion-label>
+            Informacion De Usuario
+          </ion-label>
+        </ion-item-divider>
+    
+        <ion-item>
+          <ion-label position="floating">Usuario</ion-label>
+          <ion-input [(ngModel)]="usuario" placeholder="Ingresar nombre de usuario"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label  position="floating">Contraseña</ion-label>
+          <ion-input [disabled]="true" [(ngModel)]="password" type="password" placeholder="Ingresar contraseña"></ion-input>
+        </ion-item>
+
+      </ion-item-group>
+    </ion-list>
+    <ion-button class="foto" color="tertiary"><ion-icon slot="start" name="save-outline"></ion-icon>Guardar Cambios</ion-button>
+    <ion-button class="foto" color="danger"(click)="presentActionSheet()"><ion-icon slot="start" name="trash-outline"></ion-icon>Borrar Cuenta</ion-button>
+    </ion-card-content>
+</ion-card>
+
+  
+</ion-content>
