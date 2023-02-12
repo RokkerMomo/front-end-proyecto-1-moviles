@@ -44,6 +44,12 @@ export class DataService {
     public BorrarUsuario(datos:any,requestOptions:any){
       return this.http.post(`${environment.server}/deleteuser`,datos,requestOptions)
     }
+    public editarUsuario(datos:any,requestOptions:any){
+      return this.http.post(`${environment.server}/edituser`,datos,requestOptions)
+    }
+    public editarpass(datos:any,requestOptions:any){
+      return this.http.post(`${environment.server}/editpass`,datos,requestOptions)
+    }
 
 
     //NOTAS
@@ -59,27 +65,23 @@ export class DataService {
     public borrarNota(datos:any,requestOptions:any){
       return this.http.post(`${environment.server}/delete`,datos,requestOptions)
     }
-
-    
-
   public getNotes(datos:any,requestOptions:any){
     return this.http.post(`${environment.server}/shownotes`,datos, requestOptions)
   }
 
   
+
+
   //CARPETAS
   public crearcoleccion(datos:any,requestOptions:any){
     return this.http.post(`${environment.server}/newcarpet`, datos,requestOptions)
   }
-
   public mostrarcoleccion(datos:any,requestOptions:any){
     return this.http.post(`${environment.server}/showcolecction`, datos,requestOptions)
   }
-
   public addtocarpet(datos:any,requestOptions:any){
     return this.http.post(`${environment.server}/addnote`, datos,requestOptions)
   }
-
   public mostrarcarpeta(datos:any,requestOptions:any){
     return this.http.post(`${environment.server}/showcarpet`, datos,requestOptions)
   }

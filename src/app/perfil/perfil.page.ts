@@ -21,6 +21,19 @@ export class PerfilPage implements OnInit {
     "_id":"",
     }
 
+    edicion={
+      "_id":"",
+      "nombre":"",
+      "apellido":"",
+      "usuario":"",
+    }
+
+    editpass={
+      "_id":"",
+      "actual":"",
+      "nueva":""
+    }
+
     nombre:string="";
     apellido:string="";
     password:string="";
@@ -31,6 +44,10 @@ export class PerfilPage implements OnInit {
 
     headerDict = {
       'Authorization': ``
+    }
+
+    errorres:any={
+
     }
     
      requestOptions = {                                                                                                                                                                                 
@@ -90,6 +107,108 @@ export class PerfilPage implements OnInit {
 
     const result = await actionSheet.onDidDismiss();
     this.result = JSON.stringify(result, null, 2);
+  }
+
+
+  async guardarcambio (){
+    const alert = await this.alertController.create({
+      header: 'Alerta',
+      message: `Guardado correctamente` ,
+      buttons: ['OK'],
+    });
+
+    await alert.present();
+  }
+
+  editarusuario(){
+    this.edicion._id=this.id
+    this.edicion.nombre=this.nombre
+    this.edicion.apellido=this.apellido
+    this.edicion.usuario=this.usuario
+    this.dataservice.editarUsuario(this.edicion,this.requestOptions).subscribe((res)=>{
+      this.guardarcambio();
+      this.route.queryParams.subscribe(params => {
+        this.id = params['usuario'];
+      }
+    );
+      this.router.navigate(
+        ['/home'],
+        {
+          queryParams: { usuario: this.id },
+          queryParamsHandling: 'merge' }
+        )
+    })
+  }
+
+
+
+  async presentAlert() {
+    const alert = await this.alertController.create({
+      header: 'Nueva Contraseña',
+      inputs: [
+        {
+          type:"password",
+          name:'input1',
+          placeholder: 'Contraseña Actual',
+        },
+        {
+          type:"password",
+          name:'input2',
+          placeholder: 'Contraseña Nueva',
+        },
+      ],
+      buttons: [
+        {
+          
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+           
+          },
+        },
+        {
+          text: 'Continuar',
+          role: 'confirm',
+          handler: (alertData) => {
+            this.editpass._id=this.id
+            this.editpass.actual=alertData.input1
+            this.editpass.nueva=alertData.input2
+        this.dataservice.editarpass(this.editpass,this.requestOptions).subscribe((res)=>{
+          this.route.queryParams.subscribe(params => {
+            this.id = params['usuario'];
+          }
+        );
+          this.router.navigate(
+            ['/home'],
+            {
+              queryParams: { usuario: this.id },
+              queryParamsHandling: 'merge' }
+            )
+        },(error)=>{
+          this.errorres=error
+          this.error()
+        })
+          },
+        },
+      ]
+    });
+
+    await alert.present();
+  }
+
+
+  async error (){
+    const alert = await this.alertController.create({
+      header: 'Alerta',
+      message: `${this.errorres.error.msg}` ,
+      buttons: ['OK'],
+    });
+
+    await alert.present();
+  }
+
+  changepass(){
+    this.presentAlert()
   }
 
 }

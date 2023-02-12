@@ -47,13 +47,14 @@
         </ion-item>
         <ion-item>
           <ion-label  position="floating">Contraseña</ion-label>
-          <ion-input [disabled]="true" [(ngModel)]="password" type="password" placeholder="Ingresar contraseña"></ion-input>
+          <ion-input  [disabled]="true" type="password"  placeholder="123456789" value="123456789"></ion-input>
+          <ion-button  (click)="changepass()" class="pass" slot="end" color="warning"> <ion-icon name="key-outline" slot="start"></ion-icon> Cambiar</ion-button>
         </ion-item>
 
       </ion-item-group>
     </ion-list>
-    <ion-button class="foto" color="tertiary"><ion-icon slot="start" name="save-outline"></ion-icon>Guardar Cambios</ion-button>
-    <ion-button class="foto" color="danger"(click)="presentActionSheet()"><ion-icon slot="start" name="trash-outline"></ion-icon>Borrar Cuenta</ion-button>
+    <ion-button class="opciones" color="tertiary" (click)="editarusuario()"><ion-icon slot="start" name="save-outline"></ion-icon>Guardar Cambios</ion-button>
+    <ion-button  color="danger"(click)="presentActionSheet()"><ion-icon slot="start" name="trash-outline"></ion-icon>Borrar Cuenta</ion-button>
     </ion-card-content>
 </ion-card>
 

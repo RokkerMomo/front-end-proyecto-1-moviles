@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  server: "https://backend-proyecto1-moviles-production.up.railway.app",
 };
