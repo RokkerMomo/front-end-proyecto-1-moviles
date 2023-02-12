@@ -3,7 +3,7 @@ import { RefresherCustomEvent } from '@ionic/angular';
 import { Router, ActivatedRoute} from "@angular/router";
 import { DataService} from '../services/data.service';
 import { AlertController, LoadingController, NavController } from '@ionic/angular';
-
+import { HttpHeaders } from '@angular/common/http';
 @Component({
   selector: 'app-viewnote',
   templateUrl: './viewnote.page.html',
@@ -18,8 +18,18 @@ export class ViewnotePage implements OnInit {
   owner:any ="";
   mensaje:string ="";
   carpeta:string="";
-
+  token:string="";
   carpetas:any = [];
+
+  respuesta:any={};
+
+  headerDict = {
+    'Authorization': ``
+  }
+  
+   requestOptions = {                                                                                                                                                                                 
+    headers: new HttpHeaders(this.headerDict), 
+  };
 
   datocolecc={
     "owner":"",
@@ -50,9 +60,12 @@ export class ViewnotePage implements OnInit {
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       this.owner = params['usuario'];
+      this.token = params['token']
+      this.headerDict.Authorization=`Bearer ${this.token}`
       this.datocolecc.owner=this.owner
       console.log(this.datocolecc)
-      this.dataservice.mostrarcoleccion(this.datocolecc).subscribe((res)=>{
+      console.log(this.token)
+      this.dataservice.mostrarcoleccion(this.datocolecc,this.requestOptions).subscribe((res)=>{
         this.carpetas= [...this.carpetas,res];
         console.log(this.carpetas)
       })
@@ -64,14 +77,17 @@ export class ViewnotePage implements OnInit {
     const id = this.route.snapshot.paramMap.get('_id')
     this.id=id;
     this.Dato._id=this.id;
-    this.dataservice.mostarNota(this.Dato).subscribe((res)=>{
-      this.titulo=res.titulo;
-      this.contenido=res.descripcion;
-      if (!res.carpeta) {
+    console.log('aqui')
+    console.log(this.requestOptions)
+    this.dataservice.mostarNota(this.Dato,this.requestOptions).subscribe((res)=>{
+      this.respuesta=res;
+      this.titulo=this.respuesta.titulo;
+      this.contenido=this.respuesta.descripcion;
+      if (!this.respuesta.carpeta) {
         this.carpeta="Agregar a carpeta"
       }
       else{
-        this.carpeta=res.carpeta
+        this.carpeta=this.respuesta.carpeta
       }
       
     })
@@ -107,7 +123,7 @@ export class ViewnotePage implements OnInit {
           role: 'confirm',
           handler: () => {
             this.eliminar._id=this.id;
-            this.dataservice.borrarNota(this.eliminar).subscribe((res)=>{
+            this.dataservice.borrarNota(this.eliminar,this.requestOptions).subscribe((res)=>{
             })
             this.route.queryParams.subscribe(params => {
               this.owner = params['usuario'];
@@ -130,8 +146,8 @@ export class ViewnotePage implements OnInit {
     this.cambio._id=this.id;
     this.cambio.descripcion=this.contenido;
     this.cambio.titulo=this.titulo;
-    this.dataservice.editarcontenido(this.cambio).subscribe((res)=>{
-      this.mensaje=res.msg;
+    this.dataservice.editarcontenido(this.cambio,this.requestOptions).subscribe((res)=>{
+      this.mensaje='Guardado con exito'
       this.guardarcambio();
     },(error)=>{
       this.mensaje=error.error.msg;
@@ -162,7 +178,7 @@ export class ViewnotePage implements OnInit {
     this.addcolecc.nombrecarpeta=x.detail.value
     this.addcolecc.idnota=this.id
     console.log(this.addcolecc)
-    this.dataservice.addtocarpet(this.addcolecc).subscribe((res)=>{
+    this.dataservice.addtocarpet(this.addcolecc,this.requestOptions).subscribe((res)=>{
 
     })
   }

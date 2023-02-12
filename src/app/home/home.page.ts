@@ -1,9 +1,13 @@
 import { Component } from '@angular/core';
-import { RefresherCustomEvent } from '@ionic/angular';
+import { LoadingController, RefresherCustomEvent } from '@ionic/angular';
 import { Router, ActivatedRoute} from "@angular/router";
 import { DataService} from '../services/data.service';
+import { HttpHeaders } from '@angular/common/http';
 
 const now = new Date();
+
+
+
 
 @Component({
   selector: 'app-home',
@@ -14,7 +18,7 @@ const now = new Date();
 
 
 export class HomePage {
-  constructor(private dataservice:DataService, private router:Router, private route:ActivatedRoute) { }
+  constructor(private dataservice:DataService, private router:Router, private route:ActivatedRoute, private loadingCtrl: LoadingController) { }
 
   notas:any = [];
   vacio:any = [];
@@ -22,16 +26,50 @@ export class HomePage {
 cargado:boolean=false;
  owner:any="";
 
+respuesta:any={}
+
+
  cargar={
   owner:""
  }
 
+
+  token:string="";
+
+  headerDict = {
+   'Authorization': ``
+ }
+ 
+  requestOptions = {                                                                                                                                                                                 
+   headers: new HttpHeaders(this.headerDict), 
+ };
 
   Dato={
     owner:"",
     titulo:"Nueva Nota",
     descripcion:"",
     fecha:now.toLocaleString()
+    }
+
+
+    async cargarContenido(){
+      const cargando = await this.loadingCtrl.create({
+        message:'Cargando...',
+        spinner:'bubbles',
+      });
+      await cargando.present();
+
+     
+  this.dataservice.getNotes(this.cargar,this.requestOptions).subscribe((res)=>{
+    this.notas= [...this.notas,res];
+    if ( this.notas[0].length==0) {
+      this.cargado=false;
+    }
+    else{
+      this.cargado=true;
+    }
+    cargando.dismiss();
+  })
     }
 
 
@@ -42,17 +80,14 @@ cargado:boolean=false;
       this.owner = params['usuario'];
     }
   );
+  this.route.queryParams.subscribe(params => {
+    this.token = params['token'];
+    this.headerDict.Authorization=`Bearer ${this.token}`
+  }
+);
   this.cargar.owner=this.owner;
-  this.dataservice.getNotes(this.cargar).subscribe((res)=>{
-    this.notas= [...this.notas,res];
-    if ( this.notas[0].length==0) {
-      this.cargado=false;
-    }
-    else{
-      this.cargado=true;
-    }
+    this.cargarContenido();
     
-  })
   }
 
   ionViewWillEnter(){
@@ -62,17 +97,13 @@ cargado:boolean=false;
       this.owner = params['usuario'];
     }
   );
+  this.route.queryParams.subscribe(params => {
+    this.token = params['token'];
+    this.headerDict.Authorization=`Bearer ${this.token}`
+  }
+);
   this.cargar.owner=this.owner;
-  this.dataservice.getNotes(this.cargar).subscribe((res)=>{
-    this.notas= [...this.notas,res];
-    if ( this.notas[0].length==0) {
-      this.cargado=false;
-    }
-    else{
-      this.cargado=true;
-    }
-    
-  })
+    this.cargarContenido();
 
   }
 
@@ -94,7 +125,7 @@ cargado:boolean=false;
     this.router.navigate(
       ['/perfil'],
       {
-        queryParams: { usuario: this.owner },
+        queryParams: { usuario: this.owner, token:this.token },
         queryParamsHandling: 'merge' }
       )
   }
@@ -119,8 +150,9 @@ cargado:boolean=false;
     }
   );
   this.Dato.owner=this.owner;
-    this.dataservice.crearNota(this.Dato).subscribe((res)=>{
-      this.router.navigate([`home/${res._id}`],
+    this.dataservice.crearNota(this.Dato,this.requestOptions).subscribe((res)=>{
+      this.respuesta=res;
+      this.router.navigate([`home/${this.respuesta._id}`],
       {
         queryParams: { usuario: this.owner },
         queryParamsHandling: 'merge' })

@@ -40,11 +40,10 @@ export class LoginPage implements OnInit {
     this.Datos.usuario=this.usuario;
     this.Datos.password=this.pass;
     this.dataservice.login(this.Datos).subscribe((res)=>{
-      console.log(res.user._id)
       this.router.navigate(
     ['/home'],
     {
-      queryParams: { usuario: res.user._id },
+      queryParams: { usuario: res.user._id, token:res.token },
       queryParamsHandling: 'merge' }
     );
     },(error)=>{

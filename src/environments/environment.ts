@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  server: "http://localhost:3000",
+  server: "https://backend-proyecto1-moviles-production.up.railway.app",
 };
 
 /*

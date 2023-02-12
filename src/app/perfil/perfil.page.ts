@@ -4,7 +4,7 @@ import { Router, ActivatedRoute} from "@angular/router";
 import { DataService} from '../services/data.service';
 import { ActionSheetController } from '@ionic/angular';
 import { AlertController, LoadingController, NavController } from '@ionic/angular';
-
+import { HttpHeaders } from '@angular/common/http';
 @Component({
   selector: 'app-perfil',
   templateUrl: './perfil.page.html',
@@ -26,17 +26,33 @@ export class PerfilPage implements OnInit {
     password:string="";
     usuario:string="";
 
+    respuesta:any={}
+    token:string="";
+
+    headerDict = {
+      'Authorization': ``
+    }
+    
+     requestOptions = {                                                                                                                                                                                 
+      headers: new HttpHeaders(this.headerDict), 
+    };
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       this.id = params['usuario'];
     });
+    this.route.queryParams.subscribe(params => {
+      this.token = params['token'];
+      this.headerDict.Authorization=`Bearer ${this.token}`
+    }
+  );
     this.Dato._id=this.id
-    this.dataservice.MostrarPerfil(this.Dato).subscribe((res)=>{
-      this.nombre=res.nombre;
-      this.apellido=res.apellido
-      this.password=res.password
-      this.usuario=res.usuario
+    this.dataservice.MostrarPerfil(this.Dato,this.requestOptions).subscribe((res)=>{
+      this.respuesta=res
+      this.nombre=this.respuesta.nombre
+      this.apellido=this.respuesta.apellido
+      this.password=this.respuesta.password
+      this.usuario=this.respuesta.usuario
     })
 
   }
@@ -59,7 +75,7 @@ export class PerfilPage implements OnInit {
         text: 'Borrar Cuenta',
         role: 'destructive',
         handler:()=>{
-          this.dataservice.BorrarUsuario(this.Dato).subscribe((res)=>{
+          this.dataservice.BorrarUsuario(this.Dato,this.requestOptions).subscribe((res)=>{
             this.alerta();
             this.router.navigate(['/login'])
           })

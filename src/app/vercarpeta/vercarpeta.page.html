@@ -6,7 +6,11 @@
     <ion-title>
       {{carpeta}}
     </ion-title>
-   
+    <ion-buttons slot="end">
+      <ion-button (click)="borrar()">
+        <ion-icon color="danger" slot="icon-only" name="trash-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 

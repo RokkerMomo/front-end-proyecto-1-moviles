@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DataService} from '../services/data.service';
 import { Router, ActivatedRoute} from "@angular/router";
 import { AlertController, LoadingController, NavController } from '@ionic/angular';
+import { HttpHeaders } from '@angular/common/http';
 @Component({
   selector: 'app-carpetas',
   templateUrl: './carpetas.page.html',
@@ -21,11 +22,26 @@ export class CarpetasPage implements OnInit {
     "owner":"",
   }
 
+  token:string="";
+
+  headerDict = {
+   'Authorization': ``
+ }
+ 
+  requestOptions = {                                                                                                                                                                                 
+   headers: new HttpHeaders(this.headerDict), 
+ };
+
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       this.dato.owner = params['usuario'];
     });
-    this.dataservice.mostrarcoleccion(this.dato).subscribe((res)=>{
+    this.route.queryParams.subscribe(params => {
+      this.token = params['token'];
+      this.headerDict.Authorization=`Bearer ${this.token}`
+    }
+  );
+    this.dataservice.mostrarcoleccion(this.dato,this.requestOptions).subscribe((res)=>{
       this.carpetas= [...this.carpetas,res];
     })
   }
@@ -35,7 +51,7 @@ export class CarpetasPage implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.dato.owner = params['usuario'];
     });
-    this.dataservice.mostrarcoleccion(this.dato).subscribe((res)=>{
+    this.dataservice.mostrarcoleccion(this.dato,this.requestOptions).subscribe((res)=>{
       this.carpetas= [...this.carpetas,res];
     })
   }
@@ -88,7 +104,7 @@ export class CarpetasPage implements OnInit {
       crear(x:any){
         this.carpeta.owner=this.dato.owner
         this.carpeta.nombre=x
-        this.dataservice.crearcoleccion(this.carpeta).subscribe((res)=>{
+        this.dataservice.crearcoleccion(this.carpeta,this.requestOptions).subscribe((res)=>{
           this.router.navigate(
             ['/vercarpeta'],
             {
