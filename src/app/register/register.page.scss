@@ -1,0 +1,27 @@
+ion-item-divider {
+    --background: #19422d00;
+    --color: #dcdcdc;
+
+    --padding-top: 5px;
+    --padding-bottom: 5px;
+    --padding-start: 5px;
+    --padding-end: 5px;
+    font-weight: bold;
+  }
+
+  ion-item {
+    --background: #171717   ;
+    --color: #a4a4a4;
+  
+    --border-color: #fff;
+    --border-style: solid;
+    --border-width: 1px;
+
+    --border-radius: 0.5rem;
+  
+  
+    --detail-icon-color: white;
+    --detail-icon-opacity: 1;
+    --detail-icon-font-size: 20px;
+    margin-bottom: 0.5rem;
+  }

@@ -7,6 +7,11 @@
       {{carpeta}}
     </ion-title>
     <ion-buttons slot="end">
+      <ion-button (click)="presentAlert2()">
+        <ion-icon  slot="icon-only" name="add-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
       <ion-button (click)="borrar()">
         <ion-icon color="danger" slot="icon-only" name="trash-outline"></ion-icon>
       </ion-button>
@@ -20,7 +25,7 @@
   
   <ion-list lines="full" class="color">
     <div *ngIf="cargado === true; else conditionFalse">
-      <ion-item class="item" button *ngFor="let item of notas[0]" [routerLink]="[item._id]" queryParamsHandling="merge">
+      <ion-item class="item" button *ngFor="let item of notasencarpeta[0]" [routerLink]="[item._id]" queryParamsHandling="merge">
         <ion-label>
           <h1>{{item.titulo}}</h1>
           <p>{{item.descripcion}}</p>
@@ -30,8 +35,12 @@
   </ion-item>
     </div>
     <ng-template #conditionFalse >
-      <p class="nada"> No hay nada aqui...</p>
-      <p class="nada">intenta crear una nueva Nota</p>
+      <div class="container">
+        <p class="nada"> No hay notas en esta carpeta...</p>
+        <ion-button (click)="presentAlert2()" class="agregar" fill="clear" shape="round" size="large">
+          <ion-icon  name="add-circle-outline"></ion-icon>
+        </ion-button>
+      </div>
     </ng-template>
   </ion-list>
   

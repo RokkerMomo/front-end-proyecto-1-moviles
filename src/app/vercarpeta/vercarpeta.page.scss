@@ -1,3 +1,12 @@
+.nada{
+    position: relative;
+    margin-bottom: -5px;
+}
+
+.nada2{
+    position: relative;
+}
+
 .color{
     position: relative;
     margin: 0 auto;
@@ -12,4 +21,17 @@
     margin: 1%;
     padding: 1%;
     --border-color: rgba(255, 255, 255, 0.747);
+}
+
+.container{
+    position: relative;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
+.agregar{
+    
+    margin: 0 auto;
 }

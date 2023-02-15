@@ -19,13 +19,14 @@
 <ion-content>
 
       <ion-item lines="full">
-        <ion-select
-      placeholder="{{carpeta}}"
-      (ionChange)="addtocarpet($event)"
-    >
-      <ion-select-option *ngFor="let item of carpetas[0]" value="{{item.nombre}}">{{item.nombre}}</ion-select-option>
-      <button ion-button >Nueva Carpeta</button>
-    </ion-select>
+        <ion-select placeholder="{{carpeta}}" (ionChange)="addtocarpet($event)">
+          <div *ngIf="cargado === true; else conditionFalse">
+            <ion-select-option *ngFor="let item of carpetas[0]" value="{{item.nombre}}">{{item.nombre}}</ion-select-option>
+          </div>
+          <ng-template #conditionFalse >
+              <ion-select-option [disabled]="true">No hay carpetas</ion-select-option>
+          </ng-template>
+      </ion-select>
    
       </ion-item>
    

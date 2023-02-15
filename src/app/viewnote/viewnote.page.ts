@@ -20,6 +20,7 @@ export class ViewnotePage implements OnInit {
   carpeta:string="";
   token:string="";
   carpetas:any = [];
+  cargado:boolean=false;
 
   respuesta:any={};
 
@@ -67,8 +68,17 @@ export class ViewnotePage implements OnInit {
       console.log(this.token)
       this.dataservice.mostrarcoleccion(this.datocolecc,this.requestOptions).subscribe((res)=>{
         this.carpetas= [...this.carpetas,res];
+        if ( this.carpetas[0].length==0) {
+          this.cargado=false;
+        }
+        else{
+          this.cargado=true;
+        }
+        console.log(this.cargado)
+        console.log(this.carpetas[0].length)
         console.log(this.carpetas)
       })
+     
     }
   );
 
@@ -99,10 +109,29 @@ export class ViewnotePage implements OnInit {
     const alert = await this.alertController.create({
       header: 'Alerta',
       message: `${this.mensaje}` ,
-      buttons: ['OK'],
+      buttons: [{
+        text: 'Ok',
+        handler: () => {
+          this.router.navigate(
+            ['/home'],
+            {
+              queryParams: { usuario: this.owner },
+              queryParamsHandling: 'merge' }
+            )
+        },
+      }],
     });
 
     await alert.present();
+    let navTransition = alert.onDidDismiss()
+
+    navTransition.then(()=>{
+      this.router.navigate(['/home'],
+            {
+              queryParams: { usuario: this.owner },
+              queryParamsHandling: 'merge' }
+            )
+    })
   }
 
 
@@ -149,6 +178,7 @@ export class ViewnotePage implements OnInit {
     this.dataservice.editarcontenido(this.cambio,this.requestOptions).subscribe((res)=>{
       this.mensaje='Guardado con exito'
       this.guardarcambio();
+     
     },(error)=>{
       this.mensaje=error.error.msg;
       this.guardarcambio();

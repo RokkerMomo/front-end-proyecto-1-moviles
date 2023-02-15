@@ -12,16 +12,16 @@
   </ion-fab-button>
   <ion-fab-list side="bottom">
     <ion-fab-button color="success" (click)="nuevaNota()">
-      <ion-icon name="document"></ion-icon>
+      <ion-icon size="large" name="add-circle-outline"></ion-icon>
     </ion-fab-button>
     <ion-fab-button color="tertiary" (click)="showcarpets()">
-      <ion-icon name="folder-open-outline"></ion-icon>
+      <ion-icon size="large" name="folder-open-outline"></ion-icon>
     </ion-fab-button>
     <ion-fab-button color="secondary" (click)="perfil()">
-      <ion-icon name="person-outline"></ion-icon>
+      <ion-icon size="large" name="person-outline"></ion-icon>
     </ion-fab-button>
     <ion-fab-button color="danger" (click)="salir()">
-      <ion-icon name="exit-outline"></ion-icon>
+      <ion-icon size="large" name="exit-outline"></ion-icon>
     </ion-fab-button>
   </ion-fab-list>
 </ion-fab>    
@@ -46,9 +46,15 @@
         <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
   </ion-item>
     </div>
-    <ng-template #conditionFalse >
-      <p class="nada"> No hay nada aqui...</p>
-      <p class="nada">intenta crear una nueva Nota</p>
+    <ng-template #conditionFalse>
+      <div class="container">
+        <p class="nada"> No hay nada aqui...</p>
+        <p class="nada2">Crea una nueva nota !</p>
+        <ion-button (click)="nuevaNota()" class="agregar" fill="clear" shape="round" size="large">
+          <ion-icon   name="add-circle-outline"></ion-icon>
+        </ion-button>
+      </div>
+      
     </ng-template>
   </ion-list>
   

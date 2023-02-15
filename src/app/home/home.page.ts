@@ -112,9 +112,7 @@ respuesta:any={}
   salir(){
     this.owner='';
     this.notas =[];
-    this.router.navigate(['/login']).then(() => {
-      window.location.reload();
-    });;
+    this.router.navigate(['/login'])
   }
 
   perfil(){
