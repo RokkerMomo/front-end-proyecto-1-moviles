@@ -77,13 +77,13 @@ export class DataService {
     return this.http.post(`${environment.server}/newcarpet`, datos,requestOptions)
   }
   public mostrarcoleccion(datos:any,requestOptions:any){
-    return this.http.post(`${environment.server}/showCarpeta`, datos,requestOptions)
+    return this.http.post(`${environment.server}/showCarpetas`, datos,requestOptions)
   }
   public addtocarpet(datos:any,requestOptions:any){
     return this.http.post(`${environment.server}/addnote`, datos,requestOptions)
   }
   public mostrarcarpeta(datos:any,requestOptions:any){
-    return this.http.post(`${environment.server}/showcarpet`, datos,requestOptions)
+    return this.http.post(`${environment.server}/showCarpeta`, datos,requestOptions)
   }
   public borrarcarpeta(datos:any,requestOptions:any){
     return this.http.post(`${environment.server}/deleteCarpeta`,datos,requestOptions)

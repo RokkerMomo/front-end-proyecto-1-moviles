@@ -83,6 +83,7 @@ owner:string="";
   this.dataservice.getNotes(this.cargarnotas,this.requestOptions).subscribe((res)=>{
     this.notas= [...this.notas,res];
     console.log(this.notas[0])
+    this.notascargadas=[];
     for (let i = 0; i < this.notas[0].length; i++) {
       this.notascargadas.push({
     type: 'radio',
@@ -125,6 +126,7 @@ this.cargarContenido();
       this.carpeta = params['carpeta'];
     }
   );
+  this.notascargadas=[]
   this.cargarContenido();
 
   }
